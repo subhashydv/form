@@ -1,7 +1,6 @@
 const fs = require('fs');
 const { Form } = require('./processInput.js');
 
-
 const readInput = (callBack) => {
   process.stdin.setEncoding('utf8');
 
@@ -19,7 +18,7 @@ const form = () => {
 
   form.message();
   readInput((chunk) => {
-    form.addChunk(chunk);
+    form.insertInfo(chunk);
     form.message();
     if (form.allInputReceived()) {
       writeInJson(form.toString());
@@ -27,6 +26,5 @@ const form = () => {
     }
   });
 }
-
 
 form();

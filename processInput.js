@@ -6,14 +6,34 @@ class Form {
     this.index = 0;
   }
 
-  addChunk(chunk) {
+  #validateName(chunk) {
+    return chunk.length < 6 && /^[a-z]+$/.test(chunk);
+  }
+
+  #validateDob(chunk) {
+    return /^\d{4}-\d{2}-\d{2}$/.test(chunk);
+  }
+
+  #validateHobbies(chunk) {
+    return chunk.length > 0;
+  }
+
+  insertInfo(chunk) {
     const key = this.keys[this.index];
-    if (key === 'hobbies') {
-      this.userInfo[key] = [(chunk)];
-    } else {
-      this.userInfo[key] = chunk;
+    if (key === 'name' && this.#validateName(chunk)) {
+      this.userInfo.name = chunk;
+      this.index++;
     }
-    this.index++;
+
+    if (key === 'dob' && this.#validateDob(chunk)) {
+      this.userInfo.dob = chunk;
+      this.index++;
+    }
+
+    if (key === 'hobbies' && this.#validateHobbies(chunk)) {
+      this.userInfo[key] = [(chunk)];
+      this.index++;
+    }
   }
 
   message() {
