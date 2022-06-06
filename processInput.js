@@ -1,21 +1,25 @@
 class Form {
   constructor() {
     this.userInfo = {};
-    this.keys = ['name', 'dob', 'hobbies'];
-    this.messages = ['Please enter your name', 'Enter your dob (yyyy-mm-dd)', 'Enter your hobbies'];
+    this.keys = ['name', 'dob', 'hobbies', 'ph-no'];
+    this.messages = ['Please enter your name', 'Enter your dob (yyyy-mm-dd)', 'Enter your hobbies', 'Enter your phone number'];
     this.index = 0;
   }
 
-  #validateName(chunk) {
-    return chunk.length < 6 && /^[a-z]+$/.test(chunk);
+  #validateName(name) {
+    return name.length < 6 && /^[a-z]+$/.test(name);
   }
 
-  #validateDob(chunk) {
-    return /^\d{4}-\d{2}-\d{2}$/.test(chunk);
+  #validateDob(dob) {
+    return /^\d{4}-\d{2}-\d{2}$/.test(dob);
   }
 
-  #validateHobbies(chunk) {
-    return chunk.length > 0;
+  #validateHobbies(hobbies) {
+    return hobbies.length > 0;
+  }
+
+  #validatePhNo(phNo) {
+    return /^\d{10}$/.test(phNo);
   }
 
   insertInfo(chunk) {
@@ -34,6 +38,11 @@ class Form {
       this.userInfo[key] = [(chunk)];
       this.index++;
     }
+
+    if (key === 'ph-no' && this.#validatePhNo(chunk)) {
+      this.userInfo[key] = chunk;
+      this.index++;
+    }
   }
 
   message() {
@@ -45,7 +54,7 @@ class Form {
   }
 
   allInputReceived() {
-    return this.index === 3;
+    return this.index === this.keys.length;
   }
 
 };
