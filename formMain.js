@@ -67,19 +67,23 @@ const writeInJson = data => {
   fs.writeFileSync('./form.json', JSON.stringify(data), 'utf8')
 }
 
+const fillForm = (info, form) => {
+  form.insertInfo(info);
+
+  if (form.allInputReceived()) {
+    console.log('Thank You!');
+    writeInJson(form.toString());
+    process.exit(0);
+  }
+  console.log(form.message());
+}
+
 const form = () => {
   const form = new Form();
   form.addDetails(details);
 
-  form.message();
-  readInput((chunk) => {
-    form.insertInfo(chunk);
-    if (form.allInputReceived()) {
-      writeInJson(form.toString());
-      process.exit(0);
-    }
-    form.message();
-  });
+  console.log(form.message());
+  readInput((info) => fillForm(info, form));
 }
 
 form();

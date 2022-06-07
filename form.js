@@ -8,18 +8,18 @@ class Form {
     this.details = details;
   }
 
-  insertInfo(chunk) {
+  insertInfo(info) {
     const details = this.details[this.index];
     const key = details.title;
 
-    if (details.validator(chunk)) {
-      this.userInfo[key] = details.parser(chunk);
+    if (details.validator(info)) {
+      this.userInfo[key] = details.parser(info);
       this.index++;
     }
   }
 
   message() {
-    console.log(this.details[this.index].message);
+    return this.details[this.index].message;
   }
 
   toString() {
