@@ -2,7 +2,7 @@ const fs = require('fs');
 const { Form } = require('./form.js');
 
 const validateName = name => {
-  return name.length > 4 && /^[a-z]+$/.test(name);
+  return name.length > 4 && /^[a-z ]+$/.test(name);
 };
 
 const validateDob = dob => {
@@ -23,7 +23,7 @@ const identity = info => info;
 
 const parseHobbies = hobbies => hobbies.split(',');
 
-const details = [{
+const formConfig = [{
   title: 'name',
   validator: validateName,
   message: 'Please enter your name',
@@ -51,6 +51,12 @@ const details = [{
   title: 'address',
   validator: validateAddress,
   message: 'Please enter your address line 1',
+  parser: identity
+},
+{
+  title: 'address',
+  validator: validateAddress,
+  message: 'Please enter your address line 2',
   parser: identity
 }
 ];
@@ -80,7 +86,7 @@ const fillForm = (info, form) => {
 
 const form = () => {
   const form = new Form();
-  form.addDetails(details);
+  form.addConfig(formConfig);
 
   console.log(form.message());
   readInput((info) => fillForm(info, form));

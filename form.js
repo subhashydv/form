@@ -4,22 +4,21 @@ class Form {
     this.index = 0;
   }
 
-  addDetails(details) {
-    this.details = details;
+  addConfig(details) {
+    this.formConfig = details;
   }
 
   insertInfo(info) {
-    const details = this.details[this.index];
-    const key = details.title;
+    const { title, validator, parser } = this.formConfig[this.index];
 
-    if (details.validator(info)) {
-      this.userInfo[key] = details.parser(info);
+    if (validator(info)) {
+      this.userInfo[title] = this.userInfo[title] ? this.userInfo[title] + '\n' + parser(info) : parser(info);
       this.index++;
     }
   }
 
   message() {
-    return this.details[this.index].message;
+    return this.formConfig[this.index].message;
   }
 
   toString() {
@@ -27,7 +26,7 @@ class Form {
   }
 
   allInputReceived() {
-    return this.index === this.details.length;
+    return this.index === this.formConfig.length;
   }
 };
 
