@@ -1,52 +1,25 @@
 class Form {
   constructor() {
     this.userInfo = {};
-    this.keys = ['name', 'dob', 'hobbies', 'ph-no'];
-    this.messages = ['Please enter your name', 'Enter your dob (yyyy-mm-dd)', 'Enter your hobbies', 'Enter your phone number'];
     this.index = 0;
   }
 
-  #validateName(name) {
-    return name.length < 6 && /^[a-z]+$/.test(name);
-  }
-
-  #validateDob(dob) {
-    return /^\d{4}-\d{2}-\d{2}$/.test(dob);
-  }
-
-  #validateHobbies(hobbies) {
-    return hobbies.length > 0;
-  }
-
-  #validatePhNo(phNo) {
-    return /^\d{10}$/.test(phNo);
+  addDetails(details) {
+    this.details = details;
   }
 
   insertInfo(chunk) {
-    const key = this.keys[this.index];
-    if (key === 'name' && this.#validateName(chunk)) {
-      this.userInfo.name = chunk;
-      this.index++;
-    }
+    const details = this.details[this.index];
+    const key = details.title;
 
-    if (key === 'dob' && this.#validateDob(chunk)) {
-      this.userInfo.dob = chunk;
-      this.index++;
-    }
-
-    if (key === 'hobbies' && this.#validateHobbies(chunk)) {
-      this.userInfo[key] = [(chunk)];
-      this.index++;
-    }
-
-    if (key === 'ph-no' && this.#validatePhNo(chunk)) {
-      this.userInfo[key] = chunk;
+    if (details.validator(chunk)) {
+      this.userInfo[key] = details.parser(chunk);
       this.index++;
     }
   }
 
   message() {
-    console.log(this.messages[this.index]);
+    console.log(this.details[this.index].message);
   }
 
   toString() {
@@ -54,9 +27,8 @@ class Form {
   }
 
   allInputReceived() {
-    return this.index === this.keys.length;
+    return this.index === this.details.length;
   }
-
 };
 
 exports.Form = Form;
