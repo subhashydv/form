@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Form } = require('./processInput.js');
+const { Form } = require('./form.js');
 
 const validateName = name => {
   return name.length < 6 && /^[a-z]+$/.test(name);
