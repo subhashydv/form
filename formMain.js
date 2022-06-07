@@ -2,7 +2,7 @@ const fs = require('fs');
 const { Form } = require('./form.js');
 
 const validateName = name => {
-  return name.length < 6 && /^[a-z]+$/.test(name);
+  return name.length > 4 && /^[a-z]+$/.test(name);
 };
 
 const validateDob = dob => {
