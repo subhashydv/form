@@ -1,21 +1,12 @@
 const fs = require('fs');
-const { Form } = require('./form.js');
 
-const validateName = name => {
-  return name.length > 4 && /^[a-z ]+$/.test(name);
-};
+const validateName = name => name.length > 4 && /^[a-z ]+$/.test(name);
 
-const validateDob = dob => {
-  return /^\d{4}-\d{2}-\d{2}$/.test(dob);
-};
+const validateDob = dob => /^\d{4}-\d{2}-\d{2}$/.test(dob);
 
-const validateHobbies = hobbies => {
-  return hobbies.length > 0;
-};
+const validateHobbies = hobbies => hobbies.length > 0;
 
-const validatePhNo = phNo => {
-  return /^\d{10}$/.test(phNo);
-};
+const validatePhNo = phNo => /^\d{10}$/.test(phNo);
 
 const validateAddress = () => true;
 
@@ -61,19 +52,12 @@ const formConfig = [{
 }
 ];
 
-const readInput = (callBack) => {
-  process.stdin.setEncoding('utf8');
-
-  process.stdin.on('data', (chunk) => {
-    callBack(chunk.slice(0, -1));
-  });
-};
 
 const writeInJson = data => {
   fs.writeFileSync('./form.json', JSON.stringify(data), 'utf8')
 }
 
-const fillForm = (info, form) => {
+const registerResponse = (info, form) => {
   form.insertInfo(info);
 
   if (form.allInputReceived()) {
@@ -84,12 +68,4 @@ const fillForm = (info, form) => {
   console.log(form.message());
 }
 
-const form = () => {
-  const form = new Form();
-  form.addConfig(formConfig);
-
-  console.log(form.message());
-  readInput((info) => fillForm(info, form));
-}
-
-form();
+module.exports = { registerResponse, formConfig };
