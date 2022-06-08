@@ -30,4 +30,15 @@ class Form {
   }
 };
 
-exports.Form = Form;
+const registerResponse = (info, form, writeInFile) => {
+  form.insertInfo(info);
+
+  if (form.allInputReceived()) {
+    console.log('Thank You!');
+    writeInFile(form.toString());
+    process.exit(0);
+  }
+  console.log(form.message());
+}
+
+module.exports = { registerResponse, Form };
