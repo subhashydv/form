@@ -30,15 +30,16 @@ class Form {
   }
 };
 
-const registerResponse = (info, form, writeInFile) => {
-  form.fillForm(info);
+const registerResponse = (response, form, writeInFile, logger) => {
+  form.fillForm(response);
 
-  if (form.allInputReceived()) {
-    console.log('Thank You!');
-    writeInFile(form.toString());
-    process.exit(0);
+  if (!form.allInputReceived()) {
+    logger(form.message());
+    return;
   }
-  console.log(form.message());
+
+  logger('Thank You!');
+  writeInFile(form.toString());
 }
 
 module.exports = { registerResponse, Form };

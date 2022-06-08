@@ -1,5 +1,5 @@
 class Field {
-  constructor(name, prompt, validator, parser = () => true) {
+  constructor(name, prompt, validator, parser = (x) => x) {
     this.title = name;
     this.prompt = prompt;
     this.validator = validator;

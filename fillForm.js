@@ -10,13 +10,11 @@ const validateHobbies = hobbies => hobbies.length > 0;
 
 const validatePhNo = phNo => /^\d{10}$/.test(phNo);
 
-const validateAddress = () => true;
-
-
 const parseHobbies = hobbies => hobbies.split(',');
 
 const writeInJson = data => {
-  fs.writeFileSync('./form.json', JSON.stringify(data), 'utf8')
+  fs.writeFileSync('./form.json', JSON.stringify(data), 'utf8');
+  process.stdin.destroy();
 };
 
 const fillForm = () => {
@@ -30,8 +28,8 @@ const fillForm = () => {
   console.log(form.message());
   process.stdin.setEncoding('utf8');
 
-  process.stdin.on('data', (chunk) => {
-    registerResponse(chunk.trim(), form, writeInJson);
+  process.stdin.on('data', (response) => {
+    registerResponse(response.trim(), form, writeInJson, console.log);
   });
 }
 
