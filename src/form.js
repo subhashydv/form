@@ -19,20 +19,21 @@ class Form {
 
   #isResponseValid(response) {
     const field = this.#currentField();
-    return field.isValid(response);
+    if (!field.isValid(response)) {
+      throw new Error();
+    }
+    return true;
   }
 
   prompt() {
     return this.#currentField().getPrompt();
   }
 
-  toString() {
-    const output = {};
-    this.fields.forEach(field => {
-      const { title } = field;
-      output[title] = field.getResponse();
-    });
-    return output;
+  getResponses() {
+    return this.fields.reduce((output, field) => {
+      output[field.title] = field.getResponse();
+      return output;
+    }, {});
   }
 
   allResponseReceived() {
@@ -41,7 +42,11 @@ class Form {
 };
 
 const registerResponse = (response, form, writeInFile, logger) => {
-  form.fillForm(response);
+  try {
+    form.fillForm(response);
+  } catch (err) {
+    logger('Invalid Input')
+  }
 
   if (!form.allResponseReceived()) {
     logger(form.prompt());
@@ -49,7 +54,7 @@ const registerResponse = (response, form, writeInFile, logger) => {
   }
 
   logger('Thank You!');
-  writeInFile(form.toString());
+  writeInFile(form.getResponses());
 }
 
 module.exports = { registerResponse, Form };

@@ -5,11 +5,11 @@
 
  - [ ] Make form works for address
  - [ ] Extract function 'createForm'
- - [ ] Add functionality for invalid input
 
 
  ## DONE
 
+ - [x] Add functionality for invalid input
  - [x] Add test for field
  - [x] Add test main using script
  - [X] Extract function create form

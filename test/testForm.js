@@ -27,6 +27,18 @@ describe('registerResponse', () => {
 
     assert.deepStrictEqual(content, [{ name: 'prem' }]);
   });
+
+  it('Should log Invalid Input with same prompt if input is invalid', () => {
+    const lengthMoreThan4 = x => x.length > 4;
+    const nameField = new Field('name', 'Enter name', lengthMoreThan4);
+    const form = new Form(nameField);
+
+    const content = [];
+    const logger = data => content.push(data);
+    registerResponse('prem', form, identity, logger);
+
+    assert.deepStrictEqual(content, ['Invalid Input', 'Enter name']);
+  });
 });
 
 describe('Form', () => {
@@ -42,7 +54,7 @@ describe('Form', () => {
     const form = new Form(nameField);
 
     form.fillForm('prem');
-    assert.deepStrictEqual(form.toString(), { name: 'prem' });
+    assert.deepStrictEqual(form.getResponses(), { name: 'prem' });
   });
 
   it('Should validate if all responses received', () => {
@@ -51,5 +63,13 @@ describe('Form', () => {
 
     form.fillForm('prem');
     assert.ok(form.allResponseReceived());
+  });
+
+  it('Should throw error if response is invalid', () => {
+    const lengthMoreThan4 = x => x.length > 4;
+    const nameField = new Field('name', 'Enter name', lengthMoreThan4);
+    const form = new Form(nameField);
+
+    assert.throws(() => form.fillForm('prem'));
   });
 });
