@@ -1,19 +1,29 @@
 class Form {
+  #index;
+
   constructor(...fields) {
     this.fields = fields;
-    this.index = 0;
+    this.#index = 0;
   }
 
   fillForm(response) {
-    const field = this.fields[this.index];
-    if (field.isValid(response)) {
-      field.fillResponse(response);
-      this.index++;
+    if (this.#isResponseValid(response)) {
+      this.#currentField().fillResponse(response);
+      this.#index++;
     }
   }
 
-  message() {
-    return this.fields[this.index].getPrompt();
+  #currentField() {
+    return this.fields[this.#index];
+  }
+
+  #isResponseValid(response) {
+    const field = this.#currentField();
+    return field.isValid(response);
+  }
+
+  prompt() {
+    return this.#currentField().getPrompt();
   }
 
   toString() {
@@ -25,16 +35,16 @@ class Form {
     return output;
   }
 
-  allInputReceived() {
-    return this.index === this.fields.length;
+  allResponseReceived() {
+    return this.#index === this.fields.length;
   }
 };
 
 const registerResponse = (response, form, writeInFile, logger) => {
   form.fillForm(response);
 
-  if (!form.allInputReceived()) {
-    logger(form.message());
+  if (!form.allResponseReceived()) {
+    logger(form.prompt());
     return;
   }
 

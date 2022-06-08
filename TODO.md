@@ -1,6 +1,6 @@
 ## DOING
 
-
+ - [ ] Add test for field
 
 ## TODO
 
@@ -11,6 +11,7 @@
 
  ## DONE
 
+ - [x] Add test for Form
  - [x] Inject logger function from main
  - [x] Add test for register response
  - [x] Add entity called field

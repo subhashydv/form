@@ -28,3 +28,28 @@ describe('registerResponse', () => {
     assert.deepStrictEqual(content, [{ name: 'prem' }]);
   });
 });
+
+describe('Form', () => {
+  it('Should return prompt', () => {
+    const nameField = new Field('name', 'Enter name', identity);
+    const form = new Form(nameField);
+
+    assert.strictEqual(form.prompt(), 'Enter name');
+  });
+
+  it('Should fill the response', () => {
+    const nameField = new Field('name', 'Enter name', identity);
+    const form = new Form(nameField);
+
+    form.fillForm('prem');
+    assert.deepStrictEqual(form.toString(), { name: 'prem' });
+  });
+
+  it('Should validate if all responses received', () => {
+    const nameField = new Field('name', 'Enter name', identity);
+    const form = new Form(nameField);
+
+    form.fillForm('prem');
+    assert.ok(form.allResponseReceived());
+  });
+});

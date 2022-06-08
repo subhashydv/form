@@ -25,7 +25,7 @@ const fillForm = () => {
 
   const form = new Form(nameField, dobField, hobbiesField, phNoField);
 
-  console.log(form.message());
+  console.log(form.prompt());
   process.stdin.setEncoding('utf8');
 
   process.stdin.on('data', (response) => {
