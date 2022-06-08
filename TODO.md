@@ -1,6 +1,5 @@
 ## DOING
 
- - [ ] Add test for field
 
 ## TODO
 
@@ -11,6 +10,7 @@
 
  ## DONE
 
+ - [x] Add test for field
  - [x] Add test main using script
  - [X] Extract function create form
  - [x] Add test for Form
