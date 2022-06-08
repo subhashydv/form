@@ -1,14 +1,9 @@
 const fs = require('fs');
 const { registerResponse, Form } = require('./src/form.js');
 const { Field } = require('./src/field.js');
-
-const validateName = name => name.length > 4 && /^[a-z ]+$/.test(name);
-
-const validateDob = dob => /^\d{4}-\d{2}-\d{2}$/.test(dob);
-
-const validateHobbies = hobbies => hobbies.length > 0;
-
-const validatePhNo = phNo => /^\d{10}$/.test(phNo);
+const {
+  validateDob, validateName, validateHobbies, validatePhNo
+} = require('./src/validator.js');
 
 const parseHobbies = hobbies => hobbies.split(',');
 
@@ -17,13 +12,17 @@ const writeInJson = data => {
   process.stdin.destroy();
 };
 
-const fillForm = () => {
+const createForm = () => {
   const nameField = new Field('name', 'Enter name', validateName);
   const dobField = new Field('dob', 'Enter dob', validateDob);
   const hobbiesField = new Field('hobbies', 'Enter hobbies', validateHobbies, parseHobbies);
   const phNoField = new Field('ph-no', 'Enter phone number', validatePhNo);
 
-  const form = new Form(nameField, dobField, hobbiesField, phNoField);
+  return new Form(nameField, dobField, hobbiesField, phNoField);
+};
+
+const fillForm = () => {
+  const form = createForm();
 
   console.log(form.prompt());
   process.stdin.setEncoding('utf8');
