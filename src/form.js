@@ -1,37 +1,37 @@
 class Form {
-  constructor() {
-    this.userInfo = {};
+  constructor(...fields) {
+    this.fields = fields;
     this.index = 0;
   }
 
-  addConfig(details) {
-    this.formConfig = details;
-  }
-
-  insertInfo(info) {
-    const { title, validator, parser } = this.formConfig[this.index];
-
-    if (validator(info)) {
-      this.userInfo[title] = this.userInfo[title] ? this.userInfo[title] + '\n' + parser(info) : parser(info);
+  fillForm(response) {
+    const field = this.fields[this.index];
+    if (field.isValid(response)) {
+      field.fillResponse(response);
       this.index++;
     }
   }
 
   message() {
-    return this.formConfig[this.index].message;
+    return this.fields[this.index].getPrompt();
   }
 
   toString() {
-    return this.userInfo;
+    const output = {};
+    this.fields.forEach(field => {
+      const { title } = field;
+      output[title] = field.getResponse();
+    });
+    return output;
   }
 
   allInputReceived() {
-    return this.index === this.formConfig.length;
+    return this.index === this.fields.length;
   }
 };
 
 const registerResponse = (info, form, writeInFile) => {
-  form.insertInfo(info);
+  form.fillForm(info);
 
   if (form.allInputReceived()) {
     console.log('Thank You!');
