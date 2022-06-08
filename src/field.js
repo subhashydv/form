@@ -1,9 +1,13 @@
 class Field {
+  #prompt;
+  #validator;
+  #parser;
+
   constructor(name, prompt, validator, parser = (x) => x) {
     this.title = name;
-    this.prompt = prompt;
-    this.validator = validator;
-    this.parser = parser;
+    this.#prompt = prompt;
+    this.#validator = validator;
+    this.#parser = parser;
   }
 
   fillResponse(response) {
@@ -11,15 +15,15 @@ class Field {
   }
 
   getResponse() {
-    return this.parser(this.response);
+    return this.#parser(this.response);
   }
 
   getPrompt() {
-    return this.prompt;
+    return this.#prompt;
   }
 
   isValid(response) {
-    return this.validator(response);
+    return this.#validator(response);
   }
 }
 

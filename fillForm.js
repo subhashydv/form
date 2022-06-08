@@ -27,8 +27,11 @@ const fillForm = () => {
   console.log(form.prompt());
   process.stdin.setEncoding('utf8');
 
-  process.stdin.on('data', (response) => {
-    registerResponse(response.trim(), form, writeInJson, console.log);
+  process.stdin.on('data', (chunk) => {
+    const response = chunk.trim().split('\n');
+    response.forEach(element => {
+      registerResponse(element, form, writeInJson, console.log);
+    });
   });
 }
 

@@ -11,6 +11,7 @@
 
  ## DONE
 
+ - [x] Add test main using script
  - [X] Extract function create form
  - [x] Add test for Form
  - [x] Inject logger function from main
