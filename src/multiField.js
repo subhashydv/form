@@ -19,7 +19,7 @@ class MultiField {
     this.#index++;
   }
 
-  getResponse() {
+  getEntries() {
     return this.#parser(this.#responses);
   }
 

@@ -3,11 +3,11 @@
 
 ## TODO
 
- - [ ] Change method getResponse name in field 
 
 
  ## DONE
 
+ - [x] Change method getResponse name in field 
  - [x] Make form works for address
  - [x] Extract function 'createForm'
  - [x] Add functionality for invalid input

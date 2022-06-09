@@ -33,7 +33,7 @@ class Form {
 
   getResponses() {
     return this.fields.reduce((output, field) => {
-      output[field.title] = field.getResponse();
+      output[field.title] = field.getEntries();
       return output;
     }, {});
   }

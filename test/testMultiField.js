@@ -17,7 +17,7 @@ describe('multiField', () => {
 
     multiField.fillResponse('prem');
     multiField.fillResponse('tanmay');
-    assert.strictEqual(multiField.getResponse(), 'prem\ntanmay');
+    assert.strictEqual(multiField.getEntries(), 'prem\ntanmay');
   });
 
   it('Should assert if all responses received', () => {

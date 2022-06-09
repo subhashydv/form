@@ -15,7 +15,7 @@ class Field {
     this.response = response;
   }
 
-  getResponse() {
+  getEntries() {
     return this.#parser(this.response);
   }
 

@@ -5,7 +5,7 @@ describe('Field', () => {
   it('Should fill the response', () => {
     const field = new Field('name', '', (x) => x);
     field.fillResponse('prem');
-    assert.strictEqual(field.getResponse(), 'prem');
+    assert.strictEqual(field.getEntries(), 'prem');
   });
 
   it('Should return the prompt', () => {
