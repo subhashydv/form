@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { registerResponse, Form } = require('./src/form.js');
 const { Field } = require('./src/field.js');
+const { MultiField } = require('./src/multiField.js');
 const {
   validateDob, validateName, validateHobbies, validatePhNo
 } = require('./src/validator.js');
@@ -17,8 +18,9 @@ const createForm = () => {
   const dobField = new Field('dob', 'Enter dob', validateDob);
   const hobbiesField = new Field('hobbies', 'Enter hobbies', validateHobbies, parseHobbies);
   const phNoField = new Field('ph-no', 'Enter phone number', validatePhNo);
+  const addField = new MultiField('address', ['Enter address line 1', 'Enter address line 2'], (x) => x);
 
-  return new Form(nameField, dobField, hobbiesField, phNoField);
+  return new Form(nameField, dobField, hobbiesField, phNoField, addField);
 };
 
 const fillForm = () => {

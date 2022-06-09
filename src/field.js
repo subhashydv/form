@@ -8,6 +8,7 @@ class Field {
     this.#prompt = prompt;
     this.#validator = validator;
     this.#parser = parser;
+    this.response = null;
   }
 
   fillResponse(response) {
@@ -20,6 +21,10 @@ class Field {
 
   getPrompt() {
     return this.#prompt;
+  }
+
+  isFilled() {
+    return this.response !== null;
   }
 
   isValid(response) {

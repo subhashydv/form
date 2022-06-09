@@ -3,12 +3,13 @@
 
 ## TODO
 
- - [ ] Make form works for address
- - [ ] Extract function 'createForm'
+ - [ ] Change method getResponse name in field 
 
 
  ## DONE
 
+ - [x] Make form works for address
+ - [x] Extract function 'createForm'
  - [x] Add functionality for invalid input
  - [x] Add test for field
  - [x] Add test main using script

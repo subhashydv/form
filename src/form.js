@@ -9,7 +9,9 @@ class Form {
   fillForm(response) {
     if (this.#isResponseValid(response)) {
       this.#currentField().fillResponse(response);
-      this.#index++;
+      if (this.#currentField().isFilled()) {
+        this.#index++;
+      }
     }
   }
 
